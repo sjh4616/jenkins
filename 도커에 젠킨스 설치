@@ -1,0 +1,39 @@
+ubuntu@jenkins:~$ sudo apt update -y
+
+# jenkins 폴더 생성
+ubuntu@jenkins:~$ mkdir jenkins && cd $_
+
+# 젠킨스 이미지를 베이스로 도커를 설치하기 위해 Dockerfile 생성
+ubuntu@jenkins:~$ vim Dockerfile
+FROM jenkins/jenkins:lts
+USER root
+
+# docker compose 파일 작성
+ubuntu@jenkins:~$ vim docker-compose.yml
+version: '3.7'
+services:
+  jenkins:
+    build:
+      context: .
+    container_name: jenkins
+    user: root
+    privileged: true
+    ports:
+      - 8080:8080
+      - 50000:50000
+    volumes:
+      - ./jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+
+# 젠킨스 컨테이너 생성
+ubuntu@jenkins:~$ docker compose up -d
+
+ubuntu@jenkins:~/jenkins$ docker images
+REPOSITORY        TAG       IMAGE ID       CREATED          SIZE
+jenkins-jenkins   latest    ec9b0806a2ea   29 seconds ago   1.13GB
+ubuntu@jenkins:~/jenkins$
+ubuntu@jenkins:~/jenkins$ docker ps -a
+CONTAINER ID   IMAGE             COMMAND                  CREATED          STATUS          
+PORTS                                                                                      NAMES
+7bd4c28e48f5   jenkins-jenkins   "/usr/bin/tini -- /u…"   29 seconds ago   Up 29 seconds  
+ 0.0.0.0:8080->8080/tcp, :::8080->8080/tcp, 0.0.0.0:50000->50000/tcp, :::50000->50000/tcp  jenkins
