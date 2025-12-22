@@ -1,7 +1,7 @@
 FROM jenkins/jenkins:lts
 USER root
 RUN apt-get install zip unzip git curl
-COPY scripts/install-awscli.sh install-awscli.sh
-COPY scripts/install-docker.sh install-docker.sh
-RUN chmod u+x install-awscli.sh && ./install-awscli.sh
-
+COPY ./awscli-install.sh awscli-install.sh
+COPY ./jenkins-in-docker-install.sh jenkins-in-docker-install.sh
+RUN chmod u+x awscli-install.sh && ./awscli-install.sh && \
+    chmod u+x jenkins-in-docker-install.sh && ./jenkins-in-docker-install.sh && \
