@@ -17,4 +17,3 @@ sudo usermod -aG docker $USER
 sudo systemctl daemon-reload
 sudo systemctl enable docker
 sudo systemctl restart docker
-sudo reboot
