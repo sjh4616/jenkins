@@ -1,3 +1,3 @@
 # jenkins
 
-docker build -t jenkins:lst .
+docker build -t jenkins:lts .
