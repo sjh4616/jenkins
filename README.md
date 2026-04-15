@@ -1,4 +1,16 @@
-# jenkins
+# Jenkins 컨테이너 바로 실행
+
+git clone https://github.com/sjh4616/jenkins.git
+
+cd jenkins
+
+chmod u+x docker-install.sh
+
+./docker-install.sh
+
+docker compose up -d
+
+# jenkins Image 생성
 
 docker build -t <도커 계정명>/jenkins:lts .
 
